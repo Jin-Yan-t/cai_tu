@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#1976D2</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorOnSecondary">#000000</color>
+    
+    <!-- Material Design 颜色 -->
+    <color name="md_blue_500">#2196F3</color>
+    <color name="md_blue_700">#1976D2</color>
+    <color name="md_teal_200">#03DAC5</color>
+    <color name="md_teal_700">#018786</color>
+    <color name="md_black_87">#DE000000</color>
+    <color name="md_black_60">#99000000</color>
+    <color name="md_black_38">#61000000</color>
+    <color name="md_white_100">#FFFFFF</color>
+    <color name="md_grey_100">#F5F5F5</color>
+    <color name="md_grey_300">#E0E0E0</color>
+    <color name="md_grey_500">#9E9E9E</color>
+</resources>

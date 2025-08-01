@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".MainActivity">
+
+    <!-- 标题栏 -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:title="图片尺寸调整"
+        app:titleTextColor="@android:color/white"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 图片信息 -->
+    <TextView
+        android:id="@+id/fileInfoText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="请选择图片"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <!-- 选择图片按钮 -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/selectButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="选择图片"
+        android:textColor="@android:color/white"
+        app:icon="@android:drawable/ic_menu_gallery"
+        app:iconTint="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@+id/fileInfoText"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- 原始图片 -->
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_margin="16dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/image_border"
+        app:layout_constraintTop_toBottomOf="@+id/selectButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- 尺寸输入区域 -->
+    <LinearLayout
+        android:id="@+id/sizeInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="宽度:"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/widthInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:hint="宽度"
+            android:inputType="number" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="高度:"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/heightInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:hint="高度"
+            android:inputType="number" />
+
+    </LinearLayout>
+
+    <!-- 调整尺寸按钮 -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/resizeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="调整尺寸"
+        android:textColor="@android:color/white"
+        app:icon="@android:drawable/ic_menu_crop"
+        app:iconTint="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@+id/sizeInputLayout"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- 预览标题 -->
+    <TextView
+        android:id="@+id/previewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="预览"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/resizeButton"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- 预览图片 -->
+    <ImageView
+        android:id="@+id/previewImageView"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_margin="16dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/image_border"
+        app:layout_constraintTop_toBottomOf="@+id/previewTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- 保存按钮 -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="保存图片"
+        android:textColor="@android:color/white"
+        app:icon="@android:drawable/ic_menu_save"
+        app:iconTint="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@+id/previewImageView"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

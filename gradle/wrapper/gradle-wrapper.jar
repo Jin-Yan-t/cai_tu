@@ -1,0 +1,4 @@
+# 由于无法直接创建二进制jar文件，这里创建说明文件
+# 用户需要在Android Studio中打开项目，Android Studio会自动下载和配置gradle wrapper
+# 或者使用以下命令手动下载：
+# gradle wrapper --gradle-version 7.5
