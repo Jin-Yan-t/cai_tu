@@ -1,0 +1,29 @@
+# GitHub Pages 配置
+title: 看图 - Android图片查看器
+description: 简洁高效的Android图片查看器应用
+url: "https://jin-yan-t.github.io"
+baseurl: "/cai_tu"
+
+# 主题设置
+markdown: kramdown
+highlighter: rouge
+theme: jekyll-theme-cayman
+
+# 页面设置
+show_downloads: true
+
+# 仓库信息
+repository: Jin-Yan-t/cai_tu
+github_username: Jin-Yan-t
+
+# 颜色主题
+color:
+  header: "#667eea"
+  gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+  
+# 导航
+navigation:
+  - title: 首页
+    url: /
+  - title: GitHub
+    url: https://github.com/Jin-Yan-t/cai_tu

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>看图 - Android图片查看器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 60px 0;
+            color: white;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: #ff6b6b;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+            margin: 10px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .feature-description {
+            color: #666;
+            line-height: 1.8;
+        }
+        
+        .github-section {
+            background: white;
+            padding: 60px 40px;
+            border-radius: 15px;
+            margin: 60px 0;
+            text-align: center;
+        }
+        
+        .github-button {
+            display: inline-block;
+            background: #24292e;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            margin: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: white;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>看图</h1>
+            <p class="subtitle">简洁高效的Android图片查看器</p>
+            <a href="#features" class="cta-button">了解功能</a>
+            <a href="https://github.com/Jin-Yan-t/cai_tu" class="cta-button">GitHub仓库</a>
+        </header>
+
+        <section id="features" class="features">
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3 class="feature-title">简洁界面</h3>
+                <p class="feature-description">采用Material Design设计，界面清爽，操作直观，提供最佳的用户体验。</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">快速加载</h3>
+                <p class="feature-description">优化的图片加载引擎，支持大图快速预览，无延迟浏览体验。</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3 class="feature-title">格式支持</h3>
+                <p class="feature-description">支持JPG、PNG、GIF、WebP等主流图片格式，满足日常使用需求。</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3 class="feature-title">手势操作</h3>
+                <p class="feature-description">支持缩放、滑动、双击等手势操作，浏览图片更加便捷。</p>
+            </div>
+        </section>
+
+        <section class="github-section">
+            <h2>开源项目</h2>
+            <p>这是一个开源的Android项目，欢迎Star、Fork和贡献代码！</p>
+            <a href="https://github.com/Jin-Yan-t/cai_tu" class="github-button">访问GitHub仓库</a>
+            <a href="https://github.com/Jin-Yan-t/cai_tu/fork" class="github-button">Fork项目</a>
+        </section>
+
+        <footer>
+            <p>&copy; 2024 看图项目. 使用MIT许可证开源.</p>
+        </footer>
+    </div>
+</body>
+</html>
