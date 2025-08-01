@@ -79,6 +79,7 @@ app/build/outputs/apk/debug/app-debug.apk
 - **UI框架**: Android Material Design
 - **构建工具**: Gradle
 - **最低支持**: Android 5.0 (API 21)
+- **广告SDK**: Start.io SDK 5.+
 
 ## 注意事项
 

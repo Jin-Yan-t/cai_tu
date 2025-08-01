@@ -19,6 +19,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.startapp.sdk.ads.banner.Banner;
+import com.startapp.sdk.adsbase.StartAppAd;
+import com.startapp.sdk.adsbase.StartAppSDK;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -42,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        // 初始化Start.io SDK
+        StartAppSDK.init(this, "205489527", true);
+        
         setContentView(R.layout.activity_main);
         
         // 初始化视图
@@ -52,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
         
         // 设置点击事件
         setupClickListeners();
+        
+        // 加载横幅广告
+        loadBannerAd();
     }
     
     private void initViews() {
@@ -186,5 +197,25 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "需要存储权限才能选择图片", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+    
+    private void loadBannerAd() {
+        // 横幅广告会在布局中自动加载
+    }
+    
+    private void loadInterstitialAd() {
+        final StartAppAd interstitialAd = new StartAppAd(this);
+        interstitialAd.loadAd();
+    }
+    
+    private void showInterstitialAd() {
+        StartAppAd.showAd(this);
+    }
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // 显示插屏广告
+        showInterstitialAd();
     }
 }
