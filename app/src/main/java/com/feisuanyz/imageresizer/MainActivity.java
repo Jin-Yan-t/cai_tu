@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         
         // 初始化Start.io SDK
-        StartAppSDK.init(this, "205489527", true);
+        StartAppSDK.init(this, "206466271", true);
         
         setContentView(R.layout.activity_main);
         
