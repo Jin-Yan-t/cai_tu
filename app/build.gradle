@@ -4,20 +4,35 @@ plugins {
 
 android {
     compileSdk 34
+    namespace "com.feisuanyz.imageresizer"
 
     defaultConfig {
-        applicationId "com.feisuanyz.imageresizer"
         minSdk 21
         targetSdk 34
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
 
+    signingConfigs {
+        release {
+            storeFile file('../feisuanyz-release-key.keystore')
+            storePassword '278964'
+            keyAlias 'feisuanyz'
+            keyPassword '278964'
+        }
+    }
+    
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
+    }
+
+    lintOptions {
+        abortOnError false
     }
 
     compileOptions {
@@ -32,6 +47,9 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.activity:activity:1.8.0'
     
+    // MultiDex support
+    implementation 'androidx.multidex:multidex:2.0.1'
+    
     // Start.io SDK
-    implementation 'com.startapp:inapp-sdk:5.+'
+    implementation 'com.startapp:inapp-sdk:4.10.12'
 }

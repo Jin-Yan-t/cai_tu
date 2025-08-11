@@ -1,17 +1,27 @@
 package com.feisuanyz.imageresizer;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,12 +29,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.startapp.sdk.ads.banner.Banner;
-import com.startapp.sdk.adsbase.StartAppAd;
-import com.startapp.sdk.adsbase.StartAppSDK;
+
+
+import java.io.IOException;
+
 
 import java.io.IOException;
 import java.io.InputStream;
+
+import com.feisuanyz.imageresizer.ads.AdManager;
+import com.feisuanyz.imageresizer.ads.AdConfig;
+import com.feisuanyz.imageresizer.ads.AdManager.RewardedAdLoadListener;
 
 public class MainActivity extends AppCompatActivity {
     
@@ -39,30 +54,68 @@ public class MainActivity extends AppCompatActivity {
     private Button selectButton;
     private Button resizeButton;
     private Button saveButton;
+    private Button rewardedAdButton;
     
     private Bitmap originalBitmap;
     private Bitmap currentBitmap;
+    private AdManager adManager;
+    private int operationCount = 0;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        // 初始化Start.io SDK
-        StartAppSDK.init(this, "206466271", true);
-        
         setContentView(R.layout.activity_main);
+        
+        // 初始化广告管理器
+        adManager = AdManager.getInstance(this);
+        adManager.initialize(AdConfig.START_IO_APP_ID, AdConfig.ENABLE_RETURN_AD);
+        
+        // 初始化广告
+        initializeAds();
         
         // 初始化视图
         initViews();
-        
         // 检查权限
         checkPermissions();
-        
         // 设置点击事件
         setupClickListeners();
-        
+    }
+    
+    private void initializeAds() {
         // 加载横幅广告
-        loadBannerAd();
+        if (AdConfig.ENABLE_BANNER_AD) {
+            adManager.loadBannerAd(this, AdConfig.BANNER_AD_CONTAINER_ID);
+        }
+        
+        // 加载原生广告
+        if (AdConfig.ENABLE_NATIVE_AD) {
+            adManager.loadNativeAd(this, AdConfig.NATIVE_AD_CONTAINER_ID, null);
+        }
+        
+        // 预加载激励广告
+        if (AdConfig.ENABLE_REWARDED_AD) {
+            adManager.loadRewardedAd(this, new AdManager.RewardedAdLoadListener() {
+                @Override
+                public void onRewardedAdLoaded() {
+                    // 广告预加载成功
+                }
+
+                @Override
+                        public void onRewardedAdFailed() {
+                            // 广告预加载失败
+                        }
+
+                        @Override
+                        public void onRewardedAdRewarded() {
+                            // 广告完成观看
+                        }
+
+                @Override
+                public void onRewardedAdClosed() {
+                    // 广告关闭
+                }
+            });
+        }
     }
     
     private void initViews() {
@@ -74,6 +127,9 @@ public class MainActivity extends AppCompatActivity {
         selectButton = findViewById(R.id.selectButton);
         resizeButton = findViewById(R.id.resizeButton);
         saveButton = findViewById(R.id.saveButton);
+        rewardedAdButton = findViewById(R.id.rewardedAdButton);
+
+        
     }
     
     private void checkPermissions() {
@@ -86,9 +142,75 @@ public class MainActivity extends AppCompatActivity {
     }
     
     private void setupClickListeners() {
-        selectButton.setOnClickListener(v -> openImagePicker());
-        resizeButton.setOnClickListener(v -> resizeImage());
-        saveButton.setOnClickListener(v -> saveImage());
+        selectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openImagePicker();
+                incrementOperationCount();
+            }
+        });
+        resizeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resizeImage();
+                incrementOperationCount();
+            }
+        });
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveImage();
+                incrementOperationCount();
+            }
+        });
+        
+        rewardedAdButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (AdConfig.ENABLE_REWARDED_AD) {
+                    adManager.showRewardedAd(MainActivity.this, new AdManager.RewardedAdLoadListener() {
+                        @Override
+                        public void onRewardedAdLoaded() {
+                            // 广告加载成功，自动显示
+                        }
+
+                        @Override
+                        public void onRewardedAdFailed() {
+                            Toast.makeText(MainActivity.this, "激励广告加载失败，请稍后再试", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onRewardedAdRewarded() {
+                            Toast.makeText(MainActivity.this, "恭喜获得奖励！现在可以免费保存图片", Toast.LENGTH_LONG).show();
+                        }
+
+                        @Override
+                        public void onRewardedAdClosed() {
+                            // 广告关闭，重新加载
+                            adManager.loadRewardedAd(MainActivity.this, new RewardedAdLoadListener() {
+                                @Override
+                                public void onRewardedAdLoaded() {}
+                                @Override
+                                public void onRewardedAdFailed() {}
+                                @Override
+                                public void onRewardedAdRewarded() {}
+                                @Override
+                                public void onRewardedAdClosed() {}
+                            });
+                        }
+                    });
+                } else {
+                    Toast.makeText(MainActivity.this, "激励广告功能已关闭", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+    
+    private void incrementOperationCount() {
+        operationCount++;
+        if (AdConfig.ENABLE_INTERSTITIAL_AD && operationCount % AdConfig.INTERSTITIAL_AD_INTERVAL == 0) {
+            adManager.showInterstitialAd(this);
+        }
     }
     
     private void openImagePicker() {
@@ -163,6 +285,8 @@ public class MainActivity extends AppCompatActivity {
             displayImageInfo(currentBitmap);
             
             Toast.makeText(this, "图片尺寸已调整", Toast.LENGTH_SHORT).show();
+
+            
             
         } catch (NumberFormatException e) {
             Toast.makeText(this, "请输入有效的数字", Toast.LENGTH_SHORT).show();
@@ -181,6 +305,8 @@ public class MainActivity extends AppCompatActivity {
                     currentBitmap, fileName, "调整尺寸后的图片");
             
             Toast.makeText(this, "图片已保存到相册", Toast.LENGTH_SHORT).show();
+
+            
             
         } catch (Exception e) {
             Toast.makeText(this, "保存失败: " + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -199,23 +325,35 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     
-    private void loadBannerAd() {
-        // 横幅广告会在布局中自动加载
-    }
-    
-    private void loadInterstitialAd() {
-        final StartAppAd interstitialAd = new StartAppAd(this);
-        interstitialAd.loadAd();
-    }
-    
-    private void showInterstitialAd() {
-        StartAppAd.showAd(this);
-    }
+
     
     @Override
     protected void onResume() {
         super.onResume();
-        // 显示插屏广告
-        showInterstitialAd();
+        if (adManager != null) {
+            adManager.onResume(this);
+        }
+    }
+    
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (adManager != null) {
+            adManager.onPause(this);
+        }
+    }
+    
+    @Override
+    public void onBackPressed() {
+        if (adManager != null) {
+            adManager.onBackPressed(this);
+        } else {
+            super.onBackPressed();
+        }
+    }
+    
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

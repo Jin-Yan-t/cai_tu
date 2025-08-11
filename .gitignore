@@ -13,6 +13,8 @@ Thumbs.db
 *.orig
 *.rej
 *.sublime-*
+*.keystore
+*.jks
 .gradle/
 build/
 gradle-app.setting

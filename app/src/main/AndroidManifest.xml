@@ -1,50 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.feisuanyz.imageresizer">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
-    
-    <!-- Start.io SDK permissions -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.AD_ID" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    
+    <!-- Start.io SDK permissions -->
+    
 
     <application
+        android:name="androidx.multidex.MultiDexApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher"
         android:label="图片尺寸调整"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:requestLegacyExternalStorage="true">
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashActivity"
             android:exported="true"
             android:label="图片尺寸调整"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         
-        <!-- Start.io SDK configuration -->
-        <meta-data android:name="com.startapp.sdk.APPLICATION_ID" android:value="206466271" />
-        <meta-data android:name="com.startapp.sdk.RETURN_ADS_ENABLED" android:value="true" />
-        <meta-data android:name="com.startapp.sdk.MIXED_AUDIENCE" android:value="true" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="图片尺寸调整"
+            android:theme="@style/AppTheme.NoActionBar" />
         
-        <!-- Start.io activities -->
-        <activity android:name="com.startapp.sdk.adsbase.activities.OverlayActivity"
-            android:theme="@android:style/Theme.Translucent" 
-            android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity android:name="com.startapp.sdk.adsbase.activities.FullScreenActivity"
-            android:theme="@android:style/Theme" 
-            android:configChanges="orientation|keyboardHidden|screenSize" />
+        <service android:name="com.startapp.sdk.adsbase.remoteconfig.RemoteConfigService"
+            android:exported="false" />
+        
     </application>
 
 </manifest>
