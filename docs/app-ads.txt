@@ -1,3 +1,5 @@
+# Monetag配置
+monetag.com, 1000000, DIRECT
 start.io, 207254439, DIRECT
 pubnative.net, 1007349, RESELLER, d641df8625486a7b
 pubnative.net, 1008289, RESELLER, d641df8625486a7b

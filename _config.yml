@@ -1,8 +1,8 @@
 # GitHub Pages 配置
 title: 看图 - Android图片查看器
 description: 简洁高效的Android图片查看器应用
-url: "https://jin-yan-t.github.io"
-baseurl: "/cai_tu"
+url: "https://monetag-viewer.github.io"
+baseurl: ""  # 根目录部署，适合Monetag
 
 # 主题设置
 markdown: kramdown
